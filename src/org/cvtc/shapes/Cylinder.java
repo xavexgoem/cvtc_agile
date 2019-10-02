@@ -1,13 +1,16 @@
 package org.cvtc.shapes;
 
-import javax.swing.JOptionPane;
-
-public class Cylinder extends Shape {
+public class Cylinder extends Shape implements Renderer {
 	
 	private float radius;
 	private float height;
 	
-	Cylinder(float radius, float height) {
+	public Cylinder(Dialog messageBox) {
+		super(messageBox);
+	}
+	
+	public Cylinder(Dialog messageBox, float radius, float height) {
+		super(messageBox);
 		if(radius > 0 && height > 0) {
 			this.radius = radius;
 			this.height = height;
@@ -17,19 +20,19 @@ public class Cylinder extends Shape {
 	}
 
 	@Override
-	float surfaceArea() {
+	public float surfaceArea() {
 		return (float)((2 * Math.PI * radius * height) + (2 * Math.PI * Math.pow(radius, 2)));
 	}
 
 	@Override
-	float volume() {
+	public float volume() {
 		return (float)(Math.PI * Math.pow(radius, 2) * height);
 	}
 
 	@Override
-	void render() {
+	public void render() {
 		String message = "Cylinder has surface area " + surfaceArea() + " and volume " + volume();
-		JOptionPane.showMessageDialog(null, message);
+		getMessageBox().show(message, "");
 	}
 	
 	public float getRadius() {

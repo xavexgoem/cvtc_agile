@@ -1,12 +1,15 @@
 package org.cvtc.shapes;
 
-import javax.swing.JOptionPane;
-
-public class Sphere extends Shape {
+public class Sphere extends Shape implements Renderer {
 	
 	private float radius;
 	
-	Sphere(float radius) {
+	public Sphere(Dialog messageBox) {
+		super(messageBox);
+	}
+	
+	public Sphere(Dialog messageBox, float radius) {
+		super(messageBox);
 		if(radius > 0) {
 			this.radius = radius;
 		} else {
@@ -15,19 +18,19 @@ public class Sphere extends Shape {
 	}
 
 	@Override
-	float surfaceArea() {
+	public float surfaceArea() {
 		return (float)(4 * Math.PI * Math.pow(radius, 2));
 	}
 
 	@Override
-	float volume() {
+	public float volume() {
 		return (float)((4.0/3.0) * Math.PI * Math.pow(radius, 3));
 	}
 
 	@Override
-	void render() {
+	public void render() {
 		String message = "Sphere surface area is " + surfaceArea() + " and volume is " + volume();
-		JOptionPane.showMessageDialog(null, message);
+		getMessageBox().show(message, "");
 
 	}
 

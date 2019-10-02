@@ -1,14 +1,17 @@
 package org.cvtc.shapes;
 
-import javax.swing.JOptionPane;
-
-public class Cuboid extends Shape {
+public class Cuboid extends Shape implements Renderer {
 	
 	private float width;
 	private float height;
 	private float depth;
 	
-	Cuboid(float width, float height, float depth) throws IllegalArgumentException {
+	public Cuboid(Dialog messageBox) {
+		super(messageBox);
+	}
+	
+	public Cuboid(Dialog messageBox, float width, float height, float depth) throws IllegalArgumentException {
+		super(messageBox);
 		if(width > 0 && height > 0 && depth > 0) {
 			this.width = width;
 			this.height = height;
@@ -19,19 +22,19 @@ public class Cuboid extends Shape {
 	}
 	
 	@Override
-	float surfaceArea() {
+	public float surfaceArea() {
 		return (2 * width * height) + (2 * height * depth) + (2 * width * depth);
 	}
 
 	@Override
-	float volume() {
+	public float volume() {
 		return width * height * depth;
 	}
 
 	@Override
-	void render() {
+	public void render() {
 		String message = "Cuboid has surface area " + surfaceArea() + " and volume " + volume();
-		JOptionPane.showMessageDialog(null, message);
+		getMessageBox().show(message, "");
 	}
 	
 	public float getWidth() {

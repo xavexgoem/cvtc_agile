@@ -3,32 +3,26 @@ package org.cvtc.shapes;
 public class ShapesTest {
 
 	public static void main(String[] args) {
-		// Success
-		Shape sphere = new Sphere(5.0f);
-		Shape cylinder = new Cylinder(5.0f, 2.0f);
-		Shape cuboid = new Cuboid(2.0f, 2.0f, 2.0f);
+		
+		Dialog messageBox = new MessageBox();
+		ShapeFactory shapeFactory = new ShapeFactory(messageBox);
+			
+		// OK, but if we're casting anyway *what's the point*?
+		Sphere sphere = (Sphere) shapeFactory.make(ShapeType.SPHERE);
+		Cylinder cylinder = (Cylinder) shapeFactory.make(ShapeType.CYLINDER);
+		Cuboid cuboid = (Cuboid) shapeFactory.make(ShapeType.CUBOID);
+		
+		sphere.setRadius(5);
+		cylinder.setRadius(5);
+		cylinder.setHeight(5);
+		cuboid.setDepth(5);
+		cuboid.setHeight(5);
+		cuboid.setWidth(5);
 		
 		sphere.render();
 		cylinder.render();
 		cuboid.render();
 		
-		// Failure in setter
-		Cylinder nonSuperCylinder = new Cylinder(5.0f, 2.0f); // Shape doesn't have setHeight
-		try {
-			nonSuperCylinder.setHeight(-2.0f); // bad
-			nonSuperCylinder.render();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		
-		// Failure in constructor
-		try {
-			cuboid = new Cuboid(-2.0f, 2.0f, 2.0f); // bad
-			cuboid.render();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }
